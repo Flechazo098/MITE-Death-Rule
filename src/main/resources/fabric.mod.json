@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "mite_death_rule",
+  "version": "${version}",
+  "name": "MITE Death Rule",
+  "description": "",
+  "authors": [
+    "Flechazo"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/mite_death_rule/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "com.flechazo.mdr.client.MITEDeathRuleClient"
+    ],
+    "main": [
+      "com.flechazo.mdr.MITEDeathRule"
+    ]
+  },
+  "mixins": [
+    "mite_death_rule.mixins.json"
+  ],
+  "depends": {
+    "jupiter": "2.1",
+    "trinkets": ">=3.3.0",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
