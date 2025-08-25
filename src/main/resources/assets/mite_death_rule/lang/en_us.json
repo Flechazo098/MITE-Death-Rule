@@ -1,3 +1,4 @@
 {
-  "gamerule.keepSelectedOnDeath": "Keep Selected On Death"
+  "gamerule.keepSelectedOnDeath": "Keep Selected On Death",
+  "gamerule.pvpDamageReduction": "PVP Damage Reduction"
 }

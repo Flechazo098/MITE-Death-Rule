@@ -1,8 +1,8 @@
-package com.flechazo.mdr.mixin;
+package com.flechazo.mr.mixin;
 
-import com.flechazo.mdr.MDRExpUtils;
-import com.flechazo.mdr.MITEDeathRule;
-import com.flechazo.mdr.config.MDRConfig;
+import com.flechazo.mr.MDRExpUtils;
+import com.flechazo.mr.MITERule;
+import com.flechazo.mr.config.MDRConfig;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
@@ -22,7 +22,7 @@ public abstract class ServerPlayerMixin {
         if (alive || level == null) return;
 
         var rules = level.getGameRules();
-        if (!rules.getBoolean(MITEDeathRule.KEEP_SELECTED_ON_DEATH)) return;
+        if (!rules.getBoolean(MITERule.KEEP_SELECTED_ON_DEATH)) return;
         if (rules.getBoolean(GameRules.RULE_KEEPINVENTORY)) return;
 
 
@@ -45,12 +45,21 @@ public abstract class ServerPlayerMixin {
         }
 
         int totalExp = oldPlayer.totalExperience;
-        int keepPercent = MDRConfig.getExpDropPercent();
-        var split = MDRExpUtils.splitExp(totalExp, keepPercent);
+        int lossPercent = MDRConfig.getExpDropPercent();
+        if (lossPercent < 0) lossPercent = 0;
+        if (lossPercent > 100) lossPercent = 100;
 
+        int lostExp = (int) Math.floor(totalExp * (lossPercent / 100.0));
+        int keepExp = totalExp - lostExp;
+
+        // 重置并发放保留经验（不掉落经验）
         self.totalExperience = 0;
         self.experienceLevel = 0;
         self.experienceProgress = 0.0F;
-        self.giveExperiencePoints(split.keep());
+        self.giveExperiencePoints(keepExp);
+
+        // 打印日志
+        MITERule.LOGGER.info("[MDR] restoreFrom -> player='{}', totalExp={}, lossPercent={}%, lostExp={}, keepExp={}",
+                self.getName().getString(), totalExp, lossPercent, lostExp, keepExp);
     }
 }

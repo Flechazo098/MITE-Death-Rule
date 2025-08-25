@@ -1,4 +1,4 @@
-package com.flechazo.mdr;
+package com.flechazo.mr;
 
 public class MDRExpUtils {
     public static ExpSplit splitExp(int total, int keepPercent) {

@@ -1,3 +1,4 @@
 {
-  "gamerule.keepSelectedOnDeath": "死亡不掉落 Lite"
+  "gamerule.keepSelectedOnDeath": "死亡不掉落 Lite",
+  "gamerule.pvpDamageReduction": "PVP伤害减免"
 }

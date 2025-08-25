@@ -1,6 +1,6 @@
-package com.flechazo.mdr;
+package com.flechazo.mr;
 
-import com.flechazo.mdr.config.MDRConfig;
+import com.flechazo.mr.config.MDRConfig;
 import dev.emi.trinkets.api.TrinketEnums;
 import dev.emi.trinkets.api.event.TrinketDropCallback;
 import net.fabricmc.api.ModInitializer;
@@ -11,14 +11,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class MITEDeathRule implements ModInitializer {
+public class MITERule implements ModInitializer {
 
     public static final String MOD_ID = "mite_death_rule";
 
     public static final GameRules.Key<GameRules.BooleanValue> KEEP_SELECTED_ON_DEATH =
             GameRuleRegistry.register("keepSelectedOnDeath", GameRules.Category.PLAYER, GameRuleFactory.createBooleanRule(true));
+    public static final GameRules.Key<GameRules.BooleanValue> PVP_REDUCE_INJURIES =
+            GameRuleRegistry.register("pvpDamageReduction", GameRules.Category.PLAYER, GameRuleFactory.createBooleanRule(false));
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(MITEDeathRule.class);
+    public static final Logger LOGGER = LoggerFactory.getLogger(MITERule.class);
 
     @Override
     public void onInitialize() {

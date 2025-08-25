@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "mite_death_rule",
-  "version": "${version}",
-  "name": "MITE Death Rule",
+  "id": "mite_rule",
+  "version": "${mod_version}",
+  "name": "MITE Rule",
   "description": "",
   "authors": [
     "Flechazo"
@@ -13,14 +13,14 @@
   "environment": "*",
   "entrypoints": {
     "client": [
-      "com.flechazo.mdr.client.MITEDeathRuleClient"
+      "com.flechazo.mr.client.MITERuleClient"
     ],
     "main": [
-      "com.flechazo.mdr.MITEDeathRule"
+      "com.flechazo.mr.MITERule"
     ]
   },
   "mixins": [
-    "mite_death_rule.mixins.json"
+    "mite_rule.mixins.json"
   ],
   "depends": {
     "jupiter": "2.1",

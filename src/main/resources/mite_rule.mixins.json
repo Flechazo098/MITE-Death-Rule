@@ -1,9 +1,10 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.flechazo.mdr.mixin",
+  "package": "com.flechazo.mr.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "LivingEntityMixin",
     "PlayerMixin",
     "ServerPlayerMixin"
   ],

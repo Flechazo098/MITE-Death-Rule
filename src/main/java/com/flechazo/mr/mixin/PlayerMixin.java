@@ -1,8 +1,6 @@
-package com.flechazo.mdr.mixin;
+package com.flechazo.mr.mixin;
 
-import com.flechazo.mdr.MDRExpUtils;
-import com.flechazo.mdr.MITEDeathRule;
-import com.flechazo.mdr.config.MDRConfig;
+import com.flechazo.mr.MITERule;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
@@ -28,14 +26,10 @@ public abstract class PlayerMixin {
     @Inject(method = "getExperienceReward", at = @At("HEAD"), cancellable = true)
     private void mdr$customXpToDrop(CallbackInfoReturnable<Integer> cir) {
         Player self = (Player) (Object) this;
-        if (self.getLevel() != null && self.getLevel().getGameRules().getBoolean(MITEDeathRule.KEEP_SELECTED_ON_DEATH)) {
-            int keepPercent = MDRConfig.getExpDropPercent();
-            var split = MDRExpUtils.splitExp(this.totalExperience, keepPercent);
-
-            cir.setReturnValue(split.drop());
+        if (self.getLevel() != null && self.getLevel().getGameRules().getBoolean(MITERule.KEEP_SELECTED_ON_DEATH)) {
+            cir.setReturnValue(0);
         }
     }
-
 
     @Inject(method = "dropEquipment", at = @At("HEAD"), cancellable = true)
     private void mdr$selectiveDropEquipment(CallbackInfo ci) {
@@ -43,7 +37,7 @@ public abstract class PlayerMixin {
         if (self.getLevel() == null) return;
 
         var rules = self.getLevel().getGameRules();
-        if (rules.getBoolean(MITEDeathRule.KEEP_SELECTED_ON_DEATH) && !rules.getBoolean(GameRules.RULE_KEEPINVENTORY)) {
+        if (rules.getBoolean(MITERule.KEEP_SELECTED_ON_DEATH) && !rules.getBoolean(GameRules.RULE_KEEPINVENTORY)) {
             this.destroyVanishingCursedItems();
 
             for (int i = 9; i < this.inventory.items.size(); i++) {
